@@ -1,9 +1,29 @@
-﻿# Deployment of standard Data Collection Rules
+﻿#Requires -Version 5.1
 
-<# PreReq
-    install-module Az
-    install-module Az.Graph
+<#
+    .NAME
+    Deployment-All-DataCollections
+
+    .SYNOPSIS
+    This script will create sample Data Collection Rules and Data Collection Endpoint to collect:
+        (1)   VMinsight - Linux & Windows
+        (2)   Event-logs
+        (3)   IIS-logs
+        (4)   Syslog
+  
+    .AUTHOR
+    Morten Knudsen, Microsoft MVP - https://mortenknudsen.net
+
+    .LICENSE
+    Licensed under the MIT license.
+
+    .PROJECTURI
+    https://github.com/KnudsenMorten/AzLogLibrary
+
+    .WARRANTY
+    Use at your own risk, no warranty given!
 #>
+
 
 #######################################################################
 # Variables
@@ -19,6 +39,32 @@
     $ResourceGroupDCR          = "rg-azmon-datacollectionrules-p"
 
     $ResourceGroupDCE          = "rg-azmon-datacollectionendpoints-p"
+
+
+#######################################################################
+# FUNCTIONS
+#######################################################################
+
+# Az-module
+    $ModuleCheck = Get-Module -Name Az.* -ListAvailable -ErrorAction SilentlyContinue
+    If (!($ModuleCheck))
+        {
+            Write-Output "Powershell module Az was not found !"
+            Write-Output "Installing latest version from PsGallery in scope AllUsers (takes up to 30 min) .... Please Wait !"
+
+            Install-module -Name Az -Repository PSGallery -Force -Scope AllUsers
+        }
+
+
+# Az-module
+    $ModuleCheck = Get-Module -Name Az.ResourceGraph -ListAvailable -ErrorAction SilentlyContinue
+    If (!($ModuleCheck))
+        {
+            Write-Output "Powershell module Az.ResourceGraph was not found !"
+            Write-Output "Installing latest version from PsGallery in scope AllUsers .... Please Wait !"
+
+            Install-module -Name Az.ResourceGraph -Repository PSGallery -Force -Scope AllUsers
+        }
 
 #######################################################################
 # Connectivitity to Azure
@@ -75,7 +121,7 @@
     $parameters = @{
         'Name'                  = $DcrName + (Get-Random -Maximum 100000)
         'ResourceGroup'         = $ResourceGroupDeployment
-        'TemplateFile'          = ".\" + $DcrName + ".json"
+        'TemplateFile'          = ".\vminsight\" + $DcrName + ".json"
         'DcrName'               = $DcrName
         'DcrResourceGroup'      = $ResourceGroupDCR
         'WorkspaceLocation'     = $WorkspaceLocation
@@ -95,7 +141,7 @@
     $parameters = @{
         'Name'                  = $DcrName + (Get-Random -Maximum 100000)
         'ResourceGroup'         = $ResourceGroupDeployment
-        'TemplateFile'          = ".\" + $DcrName + ".json"
+        'TemplateFile'          = ".\vminsight\" + $DcrName + ".json"
         'DcrName'               = $DcrName
         'DcrResourceGroup'      = $ResourceGroupDCR
         'WorkspaceLocation'     = $WorkspaceLocation
@@ -107,6 +153,25 @@
 
 
 #######################################################################
+# dcr-linux-vmhealth-performance_basic
+#######################################################################
+
+    $DcrName                    = "dcr-linux-vmhealth-performance_basic"
+
+    $parameters = @{
+        'Name'                  = $DcrName + (Get-Random -Maximum 100000)
+        'ResourceGroup'         = $ResourceGroupDeployment
+        'TemplateFile'          = ".\vminsight\" + $DcrName + ".json"
+        'DcrName'               = $DcrName
+        'DcrResourceGroup'      = $ResourceGroupDCR
+        'WorkspaceLocation'     = $WorkspaceLocation
+        'WorkspaceResourceId'   = $WorkspaceResourceId
+        'Verbose'               = $true
+    }
+
+    New-AzResourceGroupDeployment  @parameters
+
+#######################################################################
 # dcr-windows-vmhealth-events-system_application
 #######################################################################
 
@@ -115,7 +180,7 @@
     $parameters = @{
         'Name'                  = $DcrName + (Get-Random -Maximum 100000)
         'ResourceGroup'         = $ResourceGroupDeployment
-        'TemplateFile'          = ".\" + $DcrName + ".json"
+        'TemplateFile'          = ".\event\" + $DcrName + ".json"
         'DcrName'               = $DcrName
         'DcrResourceGroup'      = $ResourceGroupDCR
         'WorkspaceLocation'     = $WorkspaceLocation
@@ -135,7 +200,7 @@
     $parameters = @{
         'Name'                  = $DcrName + (Get-Random -Maximum 100000)
         'ResourceGroup'         = $ResourceGroupDeployment
-        'TemplateFile'          = ".\" + $DcrName + ".json"
+        'TemplateFile'          = ".\event\" + $DcrName + ".json"
         'DcrName'               = $DcrName
         'DcrResourceGroup'      = $ResourceGroupDCR
         'WorkspaceLocation'     = $WorkspaceLocation
@@ -146,15 +211,15 @@
     New-AzResourceGroupDeployment  @parameters
 
 #######################################################################
-# dce-iis-logs-westeurope
+# dce-iis-logs
 #######################################################################
 
-    $DceName                    = "dce-iis-logs-westeurope"
+    $DceName                    = "dce-iis-logs"
 
     $parameters = @{
         'Name'                  = $DceName + (Get-Random -Maximum 100000)
         'ResourceGroup'         = $ResourceGroupDCE
-        'TemplateFile'          = ".\" + $DceName + ".json"
+        'TemplateFile'          = ".\iis-logs\" + $DceName + ".json"
         'DceName'               = $DceName
         'DceResourceGroup'      = $ResourceGroupDCE
         'DceLocation'           = $WorkspaceLocation
@@ -168,7 +233,10 @@
 #######################################################################
 # dcr-windows-vmhealth-iis-logs-W3SVCx (1-50)
 #######################################################################
-
+    
+    # Wait 30 sec to let Azure sync up - we are going to retrieve from Azure Resource Graph
+    Start-Sleep -s 30
+    
     #-------------------------------
     # Getting DCE Resource Id
     #-------------------------------
@@ -217,7 +285,7 @@
             $parameters = @{
                 'Name'                  = $DcrName + (Get-Random -Maximum 100000)
                 'ResourceGroup'         = $ResourceGroupDeployment
-                'TemplateFile'          = $TemplatePath + "\" + "dcr-windows-vmhealth-iis-logs-W3SVCx" + ".json"
+                'TemplateFile'          = ".\iis-logs\" + "dcr-windows-vmhealth-iis-logs-W3SVCx" + ".json"
                 'DcrName'               = $DcrName
                 'DcrResourceGroup'      = $ResourceGroupDCR
                 'WorkspaceLocation'     = $WorkspaceLocation
@@ -229,7 +297,7 @@
 
             New-AzResourceGroupDeployment  @parameters -AsJob
         }
-    Until ($Number -ge 15)
+    Until ($Number -ge 5)
 
 #--------------------------------------------------------------------------------------------------------------
 
