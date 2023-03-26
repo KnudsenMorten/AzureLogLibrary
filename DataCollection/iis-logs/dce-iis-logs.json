@@ -5,25 +5,25 @@
         "PublicNetworkAccess": {
             "type": "String",
             "metadata": {
-                "description": "Workspace Resource ID."
+                "description": "LogAnalytics Workspace Resource ID"
             }
         },
         "DceLocation": {
             "type": "String",
             "metadata": {
-                "description": "Workspace Location."
+                "description": "LogAnalytics Workspace Location"
             }
         },
         "DceName": {
             "type": "String",
             "metadata": {
-                "description": "DCR name"
+                "description": "Data Collection Endpoint name"
             }
         },
         "DceResourceGroup": {
             "type": "String",
             "metadata": {
-                "description": "DCE resource group."
+                "description": "Data Collection Endpoint resource group"
             }
 		}
     },
