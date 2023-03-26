@@ -29,6 +29,10 @@
 ### Syslogs | Deploy DCR-rule to Azure
 [![Deploy DCR-rule to Azure | Syslog](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FKnudsenMorten%2FAzureLogLibrary%2Fmain%2FDataCollection%2Fsyslog%2Fdcr-linux-sentinel-forwarder-syslog.json)
 
+### Syslogs (CEF) | Deploy DCR-rule to Azure
+[![Deploy DCR-rule to Azure | Syslog](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FKnudsenMorten%2FAzureLogLibrary%2Fmain%2FDataCollection%2Fsyslog_cef%2Fdcr-linux-sentinel-forwarder-syslog_cef.json)
+
+
 ### TXT-logs | Deploy DCE to Azure (step 1)
 [![Deploy DCE to Azure (step 1) | IIS-logs](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FKnudsenMorten%2FAzureLogLibrary%2Fmain%2FDataCollection%2Ftxt-logs%2Fdce-txt-logs.json)
 
