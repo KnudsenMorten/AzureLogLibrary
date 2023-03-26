@@ -9,14 +9,14 @@
 # Variables
 #######################################################################
 
-    $TenantId                  = "f0fa27a0-8e7c-4f63-9a77-ec94786b7c9e"
-    $SubscriptionId            = "fce4f282-fcc6-43fb-94d8-bf1701b862c3"
+    $TenantId                  = ""
+    $SubscriptionId            = ""
 
-    $WorkspaceResourceId       = "/subscriptions/fce4f282-fcc6-43fb-94d8-bf1701b862c3/resourcegroups/rg-logworkspaces/providers/microsoft.operationalinsights/workspaces/log-platform-management-srvnetworkcloud-p"
-    $WorkspaceLocation         = "westeurope"
+    $WorkspaceResourceId       = ""
+    $WorkspaceLocation         = "" # sample "westeurope"
 
-    $ResourceGroupDeployment   = "rg-azmon-datacollectionrules-t"
-    $ResourceGroupDCR          = "rg-azmon-datacollectionrules-t"
+    $ResourceGroupDeployment   = "" # sample: "rg-azmon-datacollectionrules-t"
+    $ResourceGroupDCR          = "" # sample: "rg-azmon-datacollectionrules-t"
 
 
 #######################################################################
