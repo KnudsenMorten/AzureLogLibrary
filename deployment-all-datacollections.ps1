@@ -121,7 +121,7 @@
     $parameters = @{
         'Name'                  = $DcrName + (Get-Random -Maximum 100000)
         'ResourceGroup'         = $ResourceGroupDeployment
-        'TemplateFile'          = ".\vminsight\" + $DcrName + ".json"
+        'TemplateFile'          = ".\datacollection\vminsight\" + $DcrName + ".json"
         'DcrName'               = $DcrName
         'DcrResourceGroup'      = $ResourceGroupDCR
         'WorkspaceLocation'     = $WorkspaceLocation
@@ -141,7 +141,7 @@
     $parameters = @{
         'Name'                  = $DcrName + (Get-Random -Maximum 100000)
         'ResourceGroup'         = $ResourceGroupDeployment
-        'TemplateFile'          = ".\vminsight\" + $DcrName + ".json"
+        'TemplateFile'          = ".\datacollection\vminsight\" + $DcrName + ".json"
         'DcrName'               = $DcrName
         'DcrResourceGroup'      = $ResourceGroupDCR
         'WorkspaceLocation'     = $WorkspaceLocation
@@ -161,7 +161,7 @@
     $parameters = @{
         'Name'                  = $DcrName + (Get-Random -Maximum 100000)
         'ResourceGroup'         = $ResourceGroupDeployment
-        'TemplateFile'          = ".\vminsight\" + $DcrName + ".json"
+        'TemplateFile'          = ".\datacollection\vminsight\" + $DcrName + ".json"
         'DcrName'               = $DcrName
         'DcrResourceGroup'      = $ResourceGroupDCR
         'WorkspaceLocation'     = $WorkspaceLocation
@@ -180,7 +180,7 @@
     $parameters = @{
         'Name'                  = $DcrName + (Get-Random -Maximum 100000)
         'ResourceGroup'         = $ResourceGroupDeployment
-        'TemplateFile'          = ".\event\" + $DcrName + ".json"
+        'TemplateFile'          = ".\datacollection\event-logs\" + $DcrName + ".json"
         'DcrName'               = $DcrName
         'DcrResourceGroup'      = $ResourceGroupDCR
         'WorkspaceLocation'     = $WorkspaceLocation
@@ -200,7 +200,7 @@
     $parameters = @{
         'Name'                  = $DcrName + (Get-Random -Maximum 100000)
         'ResourceGroup'         = $ResourceGroupDeployment
-        'TemplateFile'          = ".\event\" + $DcrName + ".json"
+        'TemplateFile'          = ".\datacollection\event-logs\" + $DcrName + ".json"
         'DcrName'               = $DcrName
         'DcrResourceGroup'      = $ResourceGroupDCR
         'WorkspaceLocation'     = $WorkspaceLocation
@@ -219,7 +219,7 @@
     $parameters = @{
         'Name'                  = $DceName + (Get-Random -Maximum 100000)
         'ResourceGroup'         = $ResourceGroupDCE
-        'TemplateFile'          = ".\iis-logs\" + $DceName + ".json"
+        'TemplateFile'          = ".\datacollection\iis-logs\" + $DceName + ".json"
         'DceName'               = $DceName
         'DceResourceGroup'      = $ResourceGroupDCE
         'DceLocation'           = $WorkspaceLocation
@@ -285,7 +285,7 @@
             $parameters = @{
                 'Name'                  = $DcrName + (Get-Random -Maximum 100000)
                 'ResourceGroup'         = $ResourceGroupDeployment
-                'TemplateFile'          = ".\iis-logs\" + "dcr-windows-vmhealth-iis-logs-W3SVCx" + ".json"
+                'TemplateFile'          = ".\datacollection\iis-logs\" + "dcr-windows-vmhealth-iis-logs-W3SVCx" + ".json"
                 'DcrName'               = $DcrName
                 'DcrResourceGroup'      = $ResourceGroupDCR
                 'WorkspaceLocation'     = $WorkspaceLocation
