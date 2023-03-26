@@ -1,7 +1,9 @@
 # AzureLogLibrary
  AzureLogLibrary - repository used for Azure logging with ARM-templates, scripts, documentation to deploy DCRs, extensions, etc
 
-# Azure Data Collection Rules Get-Started Templates
+# Data Collection | Get-Started Templates
+
+[Download deployment-script & ARM-templates to deploy all data collections](https://github.com/KnudsenMorten/AzureLogLibrary/archive/refs/heads/main.zip)  
 
 ### VMInsight - Linux - Performance_ServiceMap 
 [![Deploy DCR-rule to Azure | VMInsight - Linux - Performance_ServiceMap](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https://raw.githubusercontent.com/KnudsenMorten/AzureLogLibrary/main/DataCollection/vmsight/dcr-linux-vmhealth-performance_servicemap.json)
@@ -25,7 +27,4 @@
 
 ### Syslog
 [![Deploy DCR-rule to Azure | Syslog](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FKnudsenMorten%2FAzureLogLibrary%2Fmain%2FDataCollection%2Fsyslog%2Fdcr-linux-sentinel-forwarder-syslog.json)
-
-
-[Download deployment-script & ARM-templates to deploy all data collections](https://github.com/KnudsenMorten/AzureLogLibrary/archive/refs/heads/main.zip)  
 
