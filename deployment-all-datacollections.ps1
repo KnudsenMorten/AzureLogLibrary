@@ -121,7 +121,7 @@
     $parameters = @{
         'Name'                  = $DcrName + (Get-Random -Maximum 100000)
         'ResourceGroup'         = $ResourceGroupDeployment
-        'TemplateFile'          = ".\datacollection\vminsight\" + $DcrName + ".json"
+        'TemplateFile'          = ".\DataCollection\vminsight\" + $DcrName + ".json"
         'DcrName'               = $DcrName
         'DcrResourceGroup'      = $ResourceGroupDCR
         'WorkspaceLocation'     = $WorkspaceLocation
