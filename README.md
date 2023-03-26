@@ -23,12 +23,9 @@
 
 [![Deploy DCR-rule to Azure (step 2) | IIS-logs](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FKnudsenMorten%2FAzureLogLibrary%2Fmain%2FDataCollection%2Fiis-logs%2Fdcr-windows-vmhealth-iis-logs-W3SVCx.json)
 
+### Syslog
+[![Deploy DCR-rule to Azure | Syslog](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FKnudsenMorten%2FAzureLogLibrary%2Fmain%2FDataCollection%2Fsyslog%2Fdcr-linux-sentinel-forwarder-syslog.json)
 
 
-
-[Deploy via Powershell & ARM-templates](https://github.com/KnudsenMorten/AzureLogLibrary/archive/refs/heads/main.zip)  
-
-```
-
-```
+[Download deployment-script & ARM-templates to deploy all data collections](https://github.com/KnudsenMorten/AzureLogLibrary/archive/refs/heads/main.zip)  
 
