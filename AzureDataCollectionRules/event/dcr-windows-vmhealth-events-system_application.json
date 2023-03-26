@@ -1,0 +1,93 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "WorkspaceResourceId": {
+            "type": "String",
+            "metadata": {
+                "description": "Workspace Resource ID."
+            }
+        },
+        "WorkspaceLocation": {
+            "type": "String",
+            "metadata": {
+                "description": "Workspace Location."
+            }
+        },
+        "DcrName": {
+            "type": "String",
+            "metadata": {
+                "description": "DCR name"
+            }
+        },
+        "DcrResourceGroup": {
+            "type": "String",
+            "metadata": {
+                "description": "DCR resource group."
+            }
+		}
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2017-05-10",
+            "name": "[parameters('DcrName')]",
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {},
+                    "variables": {},
+                    "resources": [
+                        {
+                            "type": "Microsoft.Insights/dataCollectionRules",
+                            "apiVersion": "2021-04-01",
+                            "name": "[parameters('DcrName')]",
+                            "location": "[parameters('WorkspaceLocation')]",
+                            "properties": {
+                                "description": "Data collection rule for VM Insights.",
+                                "dataSources": {
+                                    "windowsEventLogs": [
+                                        {
+                                            "streams": [
+                                                "Microsoft-Event"
+                                            ],
+                                            "xPathQueries": [
+                                                "Application!*[System[(Level=1 or Level=2 or Level=3 or Level=4 or Level=0 or Level=5)]]",
+												"System!*[System[(Level=1 or Level=2 or Level=3 or Level=4 or Level=0 or Level=5)]]"
+                                            ],
+                                            "name": "eventLogsDataSource"
+										}
+                                    ]
+                                },
+                                "destinations": {
+                                    "logAnalytics": [
+                                        {
+                                            "workspaceResourceId": "[parameters('WorkspaceResourceId')]",
+                                            "name": "DataCollectionEventSysApp"
+                                        }
+                                    ]
+                                },
+                                "dataFlows": [
+                                    {
+                                        "streams": [
+                                            "Microsoft-Event"
+                                        ],
+                                        "destinations": [
+                                            "DataCollectionEventSysApp"
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            "subscriptionId": "[split(parameters('WorkspaceResourceId'),'/')[2]]",
+            "resourceGroup": "[parameters('DcrResourceGroup')]"
+		}
+    ],
+    "outputs": {}
+}

@@ -1,0 +1,97 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "WorkspaceResourceId": {
+            "type": "String",
+            "metadata": {
+                "description": "Workspace Resource ID."
+            }
+        },
+        "WorkspaceLocation": {
+            "type": "String",
+            "metadata": {
+                "description": "Workspace Location."
+            }
+        },
+        "DcrName": {
+            "type": "String",
+            "metadata": {
+                "description": "DCR name"
+            }
+        },
+        "DcrResourceGroup": {
+            "type": "String",
+            "metadata": {
+                "description": "DCR resource group."
+            }
+		}
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-08-01",
+            "name": "[parameters('DcrName')]",
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {},
+                    "variables": {},
+                    "resources": [
+                        {
+                            "type": "Microsoft.Insights/dataCollectionRules",
+                            "apiVersion": "2021-04-01",
+                            "name": "[parameters('DcrName')]",
+                            "location": "[parameters('WorkspaceLocation')]",
+                            "properties": {
+                                "description": "Data collection rule for security event",
+                                "dataSources": {
+                                    "windowsEventLogs": [
+                                        {
+                                            "streams": [
+                                                "Microsoft-SecurityEvent"
+                                            ],
+                                            "xPathQueries": [
+												"Security!*",
+												"Microsoft-Windows-AppLocker/EXE and DLL!*",
+												"Microsoft-Windows-AppLocker/MSI and Script!*"
+                                            ],
+                                            "name": "eventLogsDataSource"
+										}
+                                    ]
+                                },
+                                "destinations": {
+                                    "logAnalytics": [
+                                        {
+                                            "workspaceResourceId": "[parameters('WorkspaceResourceId')]",
+                                            "name": "DataCollectionEventSecurity"
+                                        }
+                                    ]
+                                },
+                                "dataFlows": [
+                                    {
+                                        "streams": [
+                                            "Microsoft-SecurityEvent"
+                                        ],
+                                        "destinations": [
+                                            "DataCollectionEventSecurity"
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            "subscriptionId": "[split(parameters('WorkspaceResourceId'),'/')[2]]",
+            "resourceGroup": "[parameters('DcrResourceGroup')]",
+            "tags": {
+				"createdBy": "Sentinel"
+			}
+		}
+    ],
+    "outputs": {}
+}

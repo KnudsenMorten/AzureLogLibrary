@@ -1,0 +1,121 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "iisLogDirectory": {
+            "type": "String",
+            "metadata": {
+                "description": "iis log directory"
+            }
+        },
+        "DceEndpointId": {
+            "type": "String",
+            "metadata": {
+                "description": "Dce resource id"
+            }
+        },
+        "WorkspaceResourceId": {
+            "type": "String",
+            "metadata": {
+                "description": "Workspace Resource ID."
+            }
+        },
+        "WorkspaceLocation": {
+            "type": "String",
+            "metadata": {
+                "description": "Workspace Location."
+            }
+        },
+        "DcrName": {
+            "type": "String",
+            "metadata": {
+                "description": "DCR name"
+            }
+        },
+        "DcrResourceGroup": {
+            "type": "String",
+            "metadata": {
+                "description": "DCR resource group."
+            }
+		}
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2017-05-10",
+            "name": "[parameters('DcrName')]",
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {},
+                    "variables": {},
+                    "resources": [
+                        {
+                            "type": "Microsoft.Insights/dataCollectionRules",
+                            "apiVersion": "2021-09-01-preview",
+                            "name": "[parameters('DcrName')]",
+                            "location": "[parameters('WorkspaceLocation')]",
+                            "properties": {
+                                "description": "Data collection rule for IIS logs",
+								"dataCollectionEndpointId": "[parameters('DceEndpointId')]",
+								"streamDeclarations": {
+									"Custom-MyTable_CL": {
+										"columns": [
+											{
+												"name": "TimeGenerated",
+												"type": "datetime"
+											},
+											{
+												"name": "RawData",
+												"type": "string"
+											}
+										]
+									}
+								},
+                                "dataSources": {
+                                    "iisLogs": [
+                                        {
+                                            "streams": [
+                                                "Microsoft-W3CIISLog"
+                                            ],
+                                            "logDirectories": [
+                                                "[parameters('iisLogDirectory')]"
+                                            ],
+                                            "name": "iisLogsDataSource",
+                                        }
+                                    ]
+                                },
+                                "destinations": {
+                                    "logAnalytics": [
+                                        {
+                                            "workspaceResourceId": "[parameters('WorkspaceResourceId')]",
+                                            "name": "DataCollectionIISlogs"
+                                        }
+                                    ]
+                                },
+                                "dataFlows": [
+                                    {
+                                        "streams": [
+                                            "Microsoft-W3CIISLog"
+                                        ],
+                                        "destinations": [
+                                            "DataCollectionIISlogs"
+										],
+										"transformKql": "source",
+										"outputStream": "Microsoft-W3CIISLog"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            "subscriptionId": "[split(parameters('WorkspaceResourceId'),'/')[2]]",
+            "resourceGroup": "[parameters('DcrResourceGroup')]"
+		}
+    ],
+    "outputs": {}
+}
