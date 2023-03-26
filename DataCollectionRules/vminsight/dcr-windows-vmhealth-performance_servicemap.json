@@ -5,25 +5,25 @@
         "WorkspaceResourceId": {
             "type": "String",
             "metadata": {
-                "description": "Workspace Resource ID."
+                "description": "LogAnalytics Workspace Resource ID"
             }
         },
         "WorkspaceLocation": {
             "type": "String",
             "metadata": {
-                "description": "Workspace Location."
+                "description": "LogAnalytics Location (e.g. westeurope)"
             }
         },
         "DcrName": {
             "type": "String",
             "metadata": {
-                "description": "DCR name"
+                "description": "Data Collection Rule name"
             }
         },
         "DcrResourceGroup": {
             "type": "String",
             "metadata": {
-                "description": "DCR resource group."
+                "description": "Data Collection Rule resource group"
             }
 		}
     },
