@@ -1,0 +1,63 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "PublicNetworkAccess": {
+            "type": "String",
+            "metadata": {
+                "description": "LogAnalytics Workspace Resource ID"
+            }
+        },
+        "DceLocation": {
+            "type": "String",
+            "metadata": {
+                "description": "LogAnalytics Workspace Location"
+            }
+        },
+        "DceName": {
+            "type": "String",
+            "metadata": {
+                "description": "Data Collection Endpoint name"
+            }
+        },
+        "DceResourceGroup": {
+            "type": "String",
+            "metadata": {
+                "description": "Data Collection Endpoint resource group"
+            }
+		}
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2017-05-10",
+            "name": "[parameters('DceName')]",
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {},
+                    "variables": {},
+                    "resources": [
+                        {
+                            "type": "Microsoft.Insights/dataCollectionEndpoints",
+                            "apiVersion": "2021-04-01",
+                            "name": "[parameters('DceName')]",
+                            "location": "[parameters('DceLocation')]",
+                            "properties": {
+                                "description": "Data collection endpoint",
+								"networkAcls": {
+											"publicNetworkAccess": "Enabled"
+								}
+						   }
+                        }
+                    ]
+                }
+            },
+            "resourceGroup": "[parameters('DceResourceGroup')]"
+		}
+    ],
+    "outputs": {}
+}
