@@ -84,7 +84,7 @@
                                             "logDirectories": [
                                                 "[parameters('iisLogDirectory')]"
                                             ],
-                                            "name": "iisLogsDataSource",
+                                            "name": "iisLogsDataSource"
                                         }
                                     ]
                                 },
