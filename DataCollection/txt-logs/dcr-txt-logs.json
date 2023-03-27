@@ -29,7 +29,7 @@
         "endpointResourceId": {
             "type": "string",
             "metadata": {
-                "description": "Data COllection Endpoint Resource ID"
+                "description": "Data Collection Endpoint Resource ID"
             }
         }
     },
@@ -42,7 +42,7 @@
             "properties": {
                 "dataCollectionEndpointId": "[parameters('endpointResourceId')]",
                 "streamDeclarations": {
-                    "Custom-MyLogFileFormat": {
+                    "Custom-LogFile": {
                         "columns": [
                             {
                                 "name": "TimeGenerated",
@@ -59,10 +59,10 @@
                     "logFiles": [
                         {
                             "streams": [
-                                "Custom-MyLogFileFormat"
+                                "Custom-LogFile"
                             ],
                             "filePatterns": [
-                                "C:\\JavaLogs\\*.log"
+                                "C:\\app\\*.log"
                             ],
                             "format": "text",
                             "settings": {
@@ -70,11 +70,11 @@
                                     "recordStartTimestampFormat": "ISO 8601"
                                 }
                             },
-                            "name": "myLogFileFormat-Windows"
+                            "name": "LogFile-Windows"
                         },
                         {
                             "streams": [
-                                "Custom-MyLogFileFormat" 
+                                "Custom-LogFile" 
                             ],
                             "filePatterns": [
                                 "//var//*.log"
@@ -85,7 +85,7 @@
                                     "recordStartTimestampFormat": "ISO 8601"
                                 }
                             },
-                            "name": "myLogFileFormat-Linux"
+                            "name": "LogFile-Linux"
                         }
                     ]
                 },
@@ -100,13 +100,13 @@
                 "dataFlows": [
                     {
                         "streams": [
-                            "Custom-MyLogFileFormat"
+                            "Custom-LogFile"
                         ],
                         "destinations": [
                             "[parameters('workspaceName')]"
                         ],
                         "transformKql": "source",
-                        "outputStream": "Custom-MyTable_CL"
+                        "outputStream": "Custom-AppLogs_CL"
                     }
                 ]
             }

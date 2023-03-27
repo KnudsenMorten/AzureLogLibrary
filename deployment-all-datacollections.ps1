@@ -299,6 +299,26 @@
         }
     Until ($Number -ge 5)
 
+
+#######################################################################
+# dcr-linux-sentinel-forwarder-syslog
+#######################################################################
+
+    $DcrName                    = "dcr-linux-sentinel-forwarder-syslog"
+
+    $parameters = @{
+        'Name'                  = $DcrName + (Get-Random -Maximum 100000)
+        'ResourceGroup'         = $ResourceGroupDeployment
+        'TemplateFile'          = ".\datacollection\syslog\" + $DcrName + ".json"
+        'DcrName'               = $DcrName
+        'DcrResourceGroup'      = $ResourceGroupDCR
+        'WorkspaceLocation'     = $WorkspaceLocation
+        'WorkspaceResourceId'   = $WorkspaceResourceId
+        'Verbose'               = $true
+    }
+
+    New-AzResourceGroupDeployment  @parameters
+
 #--------------------------------------------------------------------------------------------------------------
 
 # CLEANUP EXISTING DEPLOYMENTS
