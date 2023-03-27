@@ -5,7 +5,7 @@
         "PublicNetworkAccess": {
             "type": "String",
             "metadata": {
-                "description": "LogAnalytics Workspace Resource ID"
+                "description": "TRUE or FALSE - to enable public network access"
             }
         },
         "DceLocation": {
