@@ -38,10 +38,10 @@
 ### TXT-logs | Deploy DCR-rule to Azure (step 2)
 [![Deploy DCR-rule to Azure (step 2) | IIS-logs](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FKnudsenMorten%2FAzureLogLibrary%2Fmain%2FDataCollection%2Ftxt-logs%2Fdcr-txt-logs.json)
 
-### Generic DCE | Deploy DCE to Azure
-[![Deploy generic DCE to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FKnudsenMorten%2FAzureLogLibrary%2Fmain%2FDataCollection%2Fdce-generic%2Fdce.json)
-
 ### DNS | Deploy DCR to Azure
 
-[![Deploy generic DCE to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https://raw.githubusercontent.com/KnudsenMorten/AzureLogLibrary/main/DataCollection/dns/dcr-dns-logs.json)
+[![Deploy generic DCE to Azure](https://aka.ms/deploytoazurebutton)](https%3A%2F%2Fportal.azure.com%2F%23create%2FMicrosoft.Template%2Furi%2Fhttps%3A%2F%2Fraw.githubusercontent.com%2FKnudsenMorten%2FAzureLogLibrary%2Fmain%2FDataCollection%2Fdns%2Fdcr-dns-logs.json)
+
+### Generic DCE | Deploy DCE to Azure
+[![Deploy generic DCE to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FKnudsenMorten%2FAzureLogLibrary%2Fmain%2FDataCollection%2Fdce-generic%2Fdce.json)
 
