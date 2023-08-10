@@ -110,7 +110,7 @@
                                             "Microsoft-ASimDnsActivityLogs"
                                         ],
                                         "destinations": [
-                                            "DataCollectionEvent"
+                                            "DnsDataCollection"
                                         ]
                                     }
                                 ]
