@@ -1,0 +1,127 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "WorkspaceResourceId": {
+            "type": "String",
+            "metadata": {
+                "description": "LogAnalytics Workspace Resource ID"
+            }
+        },
+        "WorkspaceLocation": {
+            "type": "String",
+            "metadata": {
+                "description": "LogAnalytics Workspace Location (e.g. westeurope)"
+            }
+        },
+        "DcrName": {
+            "type": "String",
+            "metadata": {
+                "description": "Data Collection Rule name"
+            }
+        },
+        "DcrResourceGroup": {
+            "type": "String",
+            "metadata": {
+                "description": "Data Collection Rule resource group"
+            }
+		}
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2017-05-10",
+            "name": "[parameters('DcrName')]",
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {},
+                    "variables": {},
+                    "resources": [
+                        {
+                            "type": "Microsoft.Insights/dataCollectionRules",
+                            "apiVersion": "2021-04-01",
+                            "name": "[parameters('DcrName')]",
+                            "location": "[parameters('WorkspaceLocation')]",
+                            "properties": {
+                                "description": "Data collection rule for VM Insights.",
+                                "dataSources": {
+                                    "extensions": [
+                                                {
+                                                    "streams": [
+                                                        "Microsoft-ASimDnsActivityLogs"
+                                                    ],
+                                                    "extensionName": "MicrosoftDnsAgent",
+                                                    "extensionSettings": {
+                                                        "Filters": [
+                                                            {
+                                                                "FilterName": "Website",
+                                                                "Rules": [
+                                                                    {
+                                                                        "Field": "DvcIpAddr",
+                                                                        "FieldValues": [
+                                                                            "123.123.123.123"
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "FilterName": "Exclude_MyCompany_Queries",
+                                                                "Rules": [
+                                                                    {
+                                                                        "Field": "DnsQuery",
+                                                                        "FieldValues": [
+                                                                            "mycompanyname.com"
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "FilterName": "Recurse_Query_Out",
+                                                                "Rules": [
+                                                                    {
+                                                                        "Field": "EventOriginalType",
+                                                                        "FieldValues": [
+                                                                            "260"
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    },
+                                                    "name": "ASimDnsActivityLogsTypeExtension"
+										        }
+                                    ]
+                                },
+                                "destinations": {
+                                    "logAnalytics": [
+                                        {
+                                            "workspaceResourceId": "[parameters('WorkspaceResourceId')]",
+                                            "name": "DnsDataCollection"
+                                        }
+                                    ]
+                                },
+                                "dataFlows": [
+                                    {
+                                        "streams": [
+                                            "Microsoft-ASimDnsActivityLogs"
+                                        ],
+                                        "destinations": [
+                                            "DataCollectionEvent"
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            "subscriptionId": "[split(parameters('WorkspaceResourceId'),'/')[2]]",
+            "resourceGroup": "[parameters('DcrResourceGroup')]"
+		}
+    ],
+    "outputs": {}
+}
