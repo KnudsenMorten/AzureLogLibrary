@@ -100,7 +100,7 @@
                                     "logAnalytics": [
                                         {
                                             "workspaceResourceId": "[parameters('WorkspaceResourceId')]",
-                                            "name": "DnsDataCollection"
+                                            "name": "DataCollectionEvent"
                                         }
                                     ]
                                 },
@@ -110,7 +110,7 @@
                                             "Microsoft-ASimDnsActivityLogs"
                                         ],
                                         "destinations": [
-                                            "DnsDataCollection"
+                                            "DataCollectionEvent"
                                         ]
                                     }
                                 ]
